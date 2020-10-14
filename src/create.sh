@@ -4,15 +4,14 @@
 # Create a sequential number file.
 #
 # Example:
-#
-# $ ./src/create.sh
-# [SUCCESS] Create dist/2020-10-10-001.md
+#   $ ./src/create.sh
+#   [SUCCESS] Create dist/2020-10-10-001.md
 #
 
 set -e
 
 readonly PREFIX=$(date "+%Y-%m-%d")
-readonly OUTPUT_DIR='dist/'
+readonly DESTINATION='dist/'
 readonly EXTENSION='.md'
 readonly SEPARATOR='-'
 readonly NUMBER_FORMAT='%03d'
@@ -53,7 +52,7 @@ error_exit() {
 
 get_targets() {
   set +e
-  local files=$(find $OUTPUT_DIR*$EXTENSION -type f -maxdepth 0 -name $PREFIX$SEPARATOR* 2>/dev/null)
+  local files=$(find $DESTINATION*$EXTENSION -type f -maxdepth 0 -name $PREFIX$SEPARATOR* 2>/dev/null)
   set -e
 
   echo "$files"
@@ -82,7 +81,7 @@ get_new_number() {
 }
 
 build_filepath() {
-  echo $OUTPUT_DIR$PREFIX$SEPARATOR$1$EXTENSION
+  echo $DESTINATION$PREFIX$SEPARATOR$1$EXTENSION
 }
 
 main() {
